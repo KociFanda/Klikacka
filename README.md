@@ -1,2 +1,0 @@
-# Klikacka
-Projekt na WAP
