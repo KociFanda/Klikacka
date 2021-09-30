@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ClickerGame</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            font-family: sans-serif;
+        }
+
+        .scoreStyle {
+            text-align: center;
+            font-size: 35px;
+            padding: 5px;
+
+        }
+
+        .centerImg {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /*<-- Used for centering buttons too */
+        body {
+            background-color: rgb(128, 251, 255);
+        }
+
+        .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            margin: 7px;
+
+
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .button:hover {
+            background-color: #3e8e41
+        }
+
+        .button:active {
+            background-color: #3e8e41;
+            box-shadow: 0 2px #666;
+            transform: translateY(4px);
+        }
+
+        .banana_style {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+
+            height: 296px;
+            width: 406px;
+        }
+
+        .banana_style:active {
+            transform: scale(0.93);
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="background">
+
+    <p class="scoreStyle">Bananas: <span id="score">0</span></p>
+    <img class="banana_style" src="img/banana.png" onclick="addToScore(amount)">
+    <br>
+    <button class="button" onclick="buyBPC()">Bananas per click [<span id="bpcCost">30</span>] -- <span
+            id="bpcOwned">1</span></button>
+
+    <button class="button" onclick="buyCursors()">Cursor [<span id="cursorCost">15</span>] -- <span
+            id="cursors">0</span></button>
+
+    <button class="button" onclick="buyFarmers()">Farmer [<span id="farmerCost">100</span>] -- <span
+            id="farmers">0</span></button>
+
+
+</div>
+
+<script>
+    var score = 0;
+
+    var cursorCost = 15;
+    var cursors = 0;
+    var farmerCost = 100;
+    var farmers = 0;
+    var bpcCost = 30;
+    var bpcOwned = 0;
+    var amount = 1;
+
+    function buyCursors() {
+        if (score >= cursorCost) {
+            score = score - cursorCost;
+            cursors = cursors + 1;
+            cursorCost = Math.round(cursorCost * 1.15);
+
+            document.getElementById("score").innerHTML = score;
+            document.getElementById("cursorCost").innerHTML = cursorCost;
+            document.getElementById("cursors").innerHTML = cursors;
+        }
+    }
+
+    function buyFarmers() {
+        if (score >= farmerCost) {
+            score = score - farmerCost;
+            farmers = farmers + 1;
+            farmerCost = Math.round(farmerCost * 1.15);
+
+            document.getElementById("score").innerHTML = score;
+            document.getElementById("farmerCost").innerHTML = farmerCost;
+            document.getElementById("farmers").innerHTML = farmers;
+
+        }
+    }
+
+    function buyBPC() {
+        if (score >= bpcCost) {
+            score = score - bpcCost;
+            bpcOwned = bpcOwned + 1;
+            amount = amount + 2;
+            bpcCost = Math.round(bpcCost * 2);
+
+            document.getElementById("score").innerHTML = score;
+            document.getElementById("bpcCost").innerHTML = bpcCost;
+            document.getElementById("bpcOwned").innerHTML = bpcOwned;
+            document.getElementById("amount").innerHTML = amount;
+        }
+    }
+
+    function addToScore() {
+        score = score + amount;
+        document.getElementById("score").innerHTML = score;
+        document.getElementById("amount").innerHTML = amount;
+    }
+
+    setInterval(function () {
+        score = score + cursors;
+        score = score + farmers * 5;
+        document.getElementById("score").innerHTML = score;
+    }, 1000); // 1000ms= 1 second
+</script>
+</body>
+
+</html>
